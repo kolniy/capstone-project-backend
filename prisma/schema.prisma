@@ -20,11 +20,13 @@ model User {
 }
 
 model Project {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
-  githuburl  String?
-  youtubeurl String?
-  owner      Profile @relation(fields: [ownerid], references: [id])
-  ownerid    String  @db.ObjectId
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  githuburl          String?
+  youtubeurl         String?
+  projectname        String?
+  projectdescription String?
+  owner              Profile @relation(fields: [ownerid], references: [id])
+  ownerid            String  @db.ObjectId
 }
 
 model Profile {

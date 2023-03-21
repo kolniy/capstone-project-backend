@@ -3,10 +3,11 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 import micro_cors from "micro-cors";
 import { typeDefs } from "./schema";
 import * as Query from "./resolver/Query";
-// import * as Mutation from "./resolver/Mutation"
+import * as Mutation from "./resolver/Mutation";
 
 const resolvers = {
   Query,
+  Mutation,
 };
 
 const apolloServer = new ApolloServer({
