@@ -4,10 +4,12 @@ import micro_cors from "micro-cors";
 import { typeDefs } from "./schema";
 import * as Query from "./resolver/Query";
 import * as Mutation from "./resolver/Mutation";
+import * as Profile from "./resolver/Profile";
 
 const resolvers = {
   Query,
   Mutation,
+  Profile,
 };
 
 const apolloServer = new ApolloServer({
