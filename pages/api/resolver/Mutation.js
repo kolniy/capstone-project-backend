@@ -70,4 +70,47 @@ const signin = async (parent, { data }, context, info) => {
   };
 };
 
-export { signup, signin };
+const createProfile = async (parent, { data }, context, info) => {
+  const profile = await prisma.profile.findUnique({
+    where: {
+      email: data.email,
+    },
+  });
+
+  if (profile) {
+    throw new Error("Profle already exists");
+  }
+
+  const newProfile = await prisma.profile.create({
+    data: {
+      firstname: data.firstname,
+      lastname: data.lastname,
+      email: data.email,
+      about: data.about,
+      photo: data.photo,
+      address: data.address,
+      github: data.github,
+      linkedin: data.linkedin,
+      phone: data.phone,
+      skills: data.skills.split(","),
+    },
+  });
+
+  return newProfile;
+};
+
+const createProject = async (parent, { data, profileId }, context, info) => {
+  const project = await prisma.project.create({
+    data: {
+      githuburl: data.githuburl,
+      youtubeurl: data.youtubeurl,
+      projectname: data.projectname,
+      projectdescription: data.projectdescription,
+      ownerid: profileId,
+    },
+  });
+
+  return project;
+};
+
+export { signup, signin, createProfile, createProject };

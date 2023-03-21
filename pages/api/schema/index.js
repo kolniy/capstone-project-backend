@@ -40,6 +40,8 @@ export const typeDefs = gql`
   type Mutation {
     signup(data: signUpInput!): UserAuthPayload!
     signin(data: signInInput!): UserAuthPayload!
+    createProfile(data: createProfileInput!): Profile!
+    createProject(data: createProjectInput!, profileId: ID!): Project!
   }
 
   type UserAuthPayload {
@@ -58,5 +60,25 @@ export const typeDefs = gql`
   input signInInput {
     email: String!
     password: String!
+  }
+
+  input createProfileInput {
+    firstname: String!
+    lastname: String!
+    email: String!
+    about: String!
+    photo: String!
+    address: String!
+    github: String!
+    linkedin: String!
+    phone: String!
+    skills: String!
+  }
+
+  input createProjectInput {
+    githuburl: String
+    youtubeurl: String
+    projectname: String!
+    projectdescription: String!
   }
 `;
