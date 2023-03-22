@@ -43,7 +43,7 @@ export const typeDefs = gql`
     signup(data: signUpInput!): UserAuthPayload!
     signin(data: signInInput!): UserAuthPayload!
     createProfile(data: createProfileInput!): Profile!
-    createProject(data: createProjectInput!, profileId: ID!): Project!
+    createProject(profileId: ID!): String
   }
 
   type UserAuthPayload {

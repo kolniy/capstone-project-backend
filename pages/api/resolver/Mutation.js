@@ -97,23 +97,8 @@ const createProfile = async (parent, { data }, { prisma }, info) => {
   return newProfile;
 };
 
-const createProject = async (
-  parent,
-  { data, profileId, prisma },
-  context,
-  info
-) => {
-  const project = await prisma.project.create({
-    data: {
-      githuburl: data.githuburl,
-      youtubeurl: data.youtubeurl,
-      projectname: data.projectname,
-      projectdescription: data.projectdescription,
-      ownerid: profileId,
-    },
-  });
-
-  return project;
+const createProject = async (parent, { profileId }, { prisma }, info) => {
+  return "some one cannot play with you";
 };
 
 export { signup, signin, createProfile, createProject };
