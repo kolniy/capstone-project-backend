@@ -3,6 +3,7 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 import micro_cors from "micro-cors";
 import { typeDefs } from "./schema";
 import { getUserIdFromAuthHeader } from "../../utilities/getUserIdFromAuthHeader";
+import allowCors from "@/utilities/allowCors";
 import { PrismaClient } from "@prisma/client";
 import * as Query from "./resolver/Query";
 import * as Mutation from "./resolver/Mutation";
@@ -34,11 +35,27 @@ const apolloServer = new ApolloServer({
   introspection: true,
 });
 
-const cors = micro_cors();
+const cors = micro_cors({
+  origin: "*",
+  allowHeaders: [
+    "Access-Control-Allow-Credentials",
+    "true",
+    "Content-Type",
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Headers",
+  ],
+});
 
 const startServer = apolloServer.start();
 
-export default cors(async function handler(req, res) {
+// export default cors(async function handler(req, res) {
+//   await startServer;
+//   await apolloServer.createHandler({
+//     path: "/api/graphql",
+//   })(req, res);
+// });
+
+export default allowCors(async function handler(req, res) {
   await startServer;
   await apolloServer.createHandler({
     path: "/api/graphql",
