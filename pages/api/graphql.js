@@ -2,14 +2,20 @@ import { ApolloServer } from "apollo-server-micro";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import micro_cors from "micro-cors";
 import { typeDefs } from "./schema";
+import { getUserIdFromAuthHeader } from "../../utilities/getUserIdFromAuthHeader";
+import { PrismaClient } from "@prisma/client";
 import * as Query from "./resolver/Query";
 import * as Mutation from "./resolver/Mutation";
-import * as Profile from "./resolver/Profile";
+import { project } from "./resolver/Profile";
+
+const prisma = new PrismaClient();
 
 const resolvers = {
   Query,
   Mutation,
-  Profile,
+  Profile: {
+    project: project,
+  },
 };
 
 const apolloServer = new ApolloServer({
@@ -19,6 +25,9 @@ const apolloServer = new ApolloServer({
   context: ({ req }) => {
     return {
       ...req,
+      prisma,
+      userId:
+        req && req.headers.authorization ? getUserIdFromAuthHeader(req) : null,
     };
   },
   playground: true,

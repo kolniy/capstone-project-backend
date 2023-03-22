@@ -22,11 +22,11 @@ export const typeDefs = gql`
     linkedin: String
     phone: String
     skills: [String]
-    projects: [Project]
+    project: [Project]
   }
 
   type Project {
-    id: ID!
+    id: ID
     githuburl: String
     youtubeurl: String
     projectname: String
@@ -35,6 +35,8 @@ export const typeDefs = gql`
 
   type Query {
     hello: String!
+    getProfiles: [Profile]!
+    getProfile(profileId: ID!): Profile
   }
 
   type Mutation {

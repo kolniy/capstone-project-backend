@@ -1,11 +1,9 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 const tokenSecret = process.env.JWTSECRET;
 
-const signup = async (parent, { data }, context, info) => {
+const signup = async (parent, { data }, { prisma }, info) => {
   const userExists = await prisma.user.findUnique({
     where: {
       email: data.email,
@@ -41,7 +39,7 @@ const signup = async (parent, { data }, context, info) => {
   };
 };
 
-const signin = async (parent, { data }, context, info) => {
+const signin = async (parent, { data }, { prisma }, info) => {
   const user = await prisma.user.findUnique({
     where: {
       email: data.email,
@@ -70,7 +68,7 @@ const signin = async (parent, { data }, context, info) => {
   };
 };
 
-const createProfile = async (parent, { data }, context, info) => {
+const createProfile = async (parent, { data }, { prisma }, info) => {
   const profile = await prisma.profile.findUnique({
     where: {
       email: data.email,
@@ -99,7 +97,12 @@ const createProfile = async (parent, { data }, context, info) => {
   return newProfile;
 };
 
-const createProject = async (parent, { data, profileId }, context, info) => {
+const createProject = async (
+  parent,
+  { data, profileId, prisma },
+  context,
+  info
+) => {
   const project = await prisma.project.create({
     data: {
       githuburl: data.githuburl,
