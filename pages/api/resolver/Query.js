@@ -21,7 +21,7 @@ const getProfiles = async (parent, args, { userId, prisma }, info) => {
   return profiles;
 };
 
-const getProfile = async (parent, { profileId, prisma }, { userId }, info) => {
+const getProfile = async (parent, { profileId }, { userId, prisma }, info) => {
   if (!userId) {
     throw new Error("not authorized, invalid token");
   }
