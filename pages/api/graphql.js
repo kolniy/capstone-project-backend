@@ -31,6 +31,7 @@ const apolloServer = new ApolloServer({
     };
   },
   playground: true,
+  introspection: true,
 });
 
 const cors = micro_cors({
