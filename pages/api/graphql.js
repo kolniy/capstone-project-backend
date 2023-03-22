@@ -32,6 +32,12 @@ const apolloServer = new ApolloServer({
   },
   playground: true,
   introspection: true,
+  cors: {
+    origin: "*",
+    methods: "GET,HEAD,POST",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  },
 });
 
 const cors = micro_cors({
