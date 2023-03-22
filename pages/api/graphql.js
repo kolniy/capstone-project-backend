@@ -35,7 +35,7 @@ const apolloServer = new ApolloServer({
 });
 
 const cors = micro_cors({
-  origin: "https://studio.apollographql.com",
+  origin: "*",
   allowMethods: ["GET", "POST"],
   allowHeaders: [
     "Access-Control-Allow-Credentials",
