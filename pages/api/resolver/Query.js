@@ -45,4 +45,20 @@ const getProfile = async (parent, { profileId }, { userId, prisma }, info) => {
   return profile;
 };
 
-export { hello, getProfiles, getProfile };
+const filterProfiles = async (parent, { fname, lname }, { prisma }, info) => {
+  const profiles = await prisma.profile.findMany({
+    where: {
+      OR: [
+        {
+          firstname: { contains: fname, mode: "insensitive" },
+        },
+        {
+          lastname: { contains: lname, mode: "insensitive" },
+        },
+      ],
+    },
+  });
+  return profiles;
+};
+
+export { hello, getProfiles, getProfile, filterProfiles };

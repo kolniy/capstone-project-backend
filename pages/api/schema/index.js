@@ -37,6 +37,7 @@ export const typeDefs = gql`
     hello: String!
     getProfiles: [Profile]!
     getProfile(profileId: ID!): Profile
+    filterProfiles(fname: String, lname: String): [Profile]!
   }
 
   type Mutation {
