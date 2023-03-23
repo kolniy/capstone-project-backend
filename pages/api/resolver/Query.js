@@ -48,7 +48,7 @@ const getProfile = async (parent, { profileId }, { userId, prisma }, info) => {
 const filterProfiles = async (parent, { fname, lname }, { prisma }, info) => {
   const profiles = await prisma.profile.findMany({
     where: {
-      OR: [
+      AND: [
         {
           firstname: { contains: fname, mode: "insensitive" },
         },
